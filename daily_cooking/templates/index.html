@@ -1,24 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Cooking</title>
 </head>
 <body>
-    <h1>Lista de recetas</h1>
-    {% for receta in recetas %}
-        <h2>{{ receta.nombre }}</h2>
-        <p>{{ receta.descripcion }}</p>
-        <h2>Ingredientes: </h2>
-        <ul>
-            {% for item in receta.receta_ingredientes.all %}
-            <li>{{ item.cantidad }} de {{ item.ingrediente.nombre }}</li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+    <h1>Daily Cooking</h1>
+    <p>Comidas sencillas, momentos especiales.</p>
 
-    <!-- Botón de Login -->
+    <!-- Botón de Iniciar sesión -->
     <button onclick="window.location.href='{% url 'login' %}'">Iniciar sesión</button>
+
+    <!-- Botón de Registrarse -->
+    <button onclick="window.location.href='{% url 'registro' %}'">Registrarse</button>
 </body>
 </html>
+

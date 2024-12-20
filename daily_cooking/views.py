@@ -2,6 +2,8 @@ from .models import Receta
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from .forms import IngredienteForm
+from django.http import HttpResponse
 
 # Create your views here.
 def index (request):
@@ -10,6 +12,12 @@ def index (request):
         'recetas': recetas
     }
     return render(request, 'index.html', {'recetas': recetas})
+
+def registro(request):
+    if request.method == 'POST':
+        # Aquí puedes agregar la lógica para registrar a un usuario, por ejemplo
+        pass
+    return render(request, 'registro.html')
 
 def user_login(request):
     if request.method == 'POST':
@@ -27,7 +35,15 @@ def inicio(request):
     return render(request, 'inicio.html')  # Renderiza la plantilla "inicio.html"
 
 def ingresar_ingredientes(request):
-    return render(request, 'ingresar_ingredientes.html')  # Página para ingresar ingredientes
+    if request.method == 'POST':
+        form = IngredienteForm(request.POST)
+        if form.is_valid():
+            form.save()  # Guarda el ingrediente en la base de datos
+            # Redirige a la misma página o a una página de éxito
+            return redirect('ingresar_ingredientes')
+    else:
+        form = IngredienteForm()
 
+    return render(request, 'ingresar_ingredientes.html', {'form': form})
 def ingresar_restricciones(request):
     return render(request, 'restricciones.html')  # Redirige a una plantilla de restricciones
