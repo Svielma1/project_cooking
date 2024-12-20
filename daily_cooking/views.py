@@ -60,7 +60,7 @@ def agregar_receta(request):
                 ingrediente, created = Ingrediente.objects.get_or_create(nombre=nombre_ingrediente)
                 cantidad = form.cleaned_data['cantidad']
                 RecetaIngrediente.objects.create(receta=receta, ingrediente=ingrediente, cantidad=cantidad)
-            return redirect(inicio)
+            return redirect(index)
     else:
         receta_form = RecetaForm()
         formset = RecetaIngredienteFormSet()
