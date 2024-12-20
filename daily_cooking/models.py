@@ -2,13 +2,12 @@ from django.db import models
 
 # Create your models here.
 class Ingrediente(models.Model):
+    id_ingrediente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
-    cantidad = models.CharField(max_length=100)
 
-    # El campo 'id' no debe ser especificado explícitamente
 
     def __str__(self):
-        return f"{self.cantidad} de {self.nombre}"
+        return self.nombre
     
 class Receta(models.Model):
     id_receta = models.AutoField(primary_key=True)
