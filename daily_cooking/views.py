@@ -1,8 +1,8 @@
-from .models import Receta
+from .models import Receta, Ingrediente, RecetaIngrediente
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .forms import IngredienteForm
+from .forms import IngredienteForm, RecetaForm, RecetaIngredienteFormSet
 from django.http import HttpResponse
 
 # Create your views here.
@@ -45,5 +45,28 @@ def ingresar_ingredientes(request):
         form = IngredienteForm()
 
     return render(request, 'ingresar_ingredientes.html', {'form': form})
+
 def ingresar_restricciones(request):
     return render(request, 'restricciones.html')  # Redirige a una plantilla de restricciones
+
+def agregar_receta(request):
+    if request.method == 'POST':
+        receta_form = RecetaForm(request.POST)
+        formset = RecetaIngredienteFormSet(request.POST)
+        if receta_form.is_valid() and formset.is_valid():
+            receta = receta_form.save()
+            for form in formset:
+                nombre_ingrediente = form.cleaned_data['ingrediente_nombre']
+                ingrediente, created = Ingrediente.objects.get_or_create(nombre=nombre_ingrediente)
+                cantidad = form.cleaned_data['cantidad']
+                RecetaIngrediente.objects.create(receta=receta, ingrediente=ingrediente, cantidad=cantidad)
+            return redirect(inicio)
+    else:
+        receta_form = RecetaForm()
+        formset = RecetaIngredienteFormSet()
+    
+    context = {
+        'receta_form': receta_form,
+        'formset': formset
+    }
+    return render(request, 'agregar_receta.html', context)
