@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('daily-cooking/', include('daily_cooking.urls')),
+    path('admin/', admin.site.urls),                   # Ruta para el admin
+    path('', include('daily_cooking.urls')),                  # Redirige a las rutas definidas en la app
 ]

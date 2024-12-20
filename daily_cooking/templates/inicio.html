@@ -1,0 +1,19 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+    <title>Daily Cooking</title>
+</head>
+<body>
+    <h1>Daily Cooking</h1>
+    <p>Daily Cooking te proporcionará recetas para la semana con los ingredientes que tengas en tu cocina. Fácil y sin tener que pensar en tu siguiente comida.
+        Recuerda ingresar tus restricciones alimentarias para una mejor personalización.
+    </p>
+    <button onclick="location.href='{% url 'ingresar_ingredientes' %}'">Ingresar ingredientes</button>
+    <button onclick="window.location.href='{% url 'ingresar_restricciones' %}'">Ingresar restricciones</button>
+</body>
+</html>
