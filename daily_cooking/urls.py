@@ -19,7 +19,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.user_login, name='login'),                # Ruta de login
+    path('', views.index, name='index'),    
+    path('login/', views.user_login, name='login'),            # Ruta de login
     path('inicio/', views.inicio, name='inicio'),            # Ruta para la vista "inicio"
     path('ingresar-ingredientes/', views.ingresar_ingredientes, name='ingresar_ingredientes'),  # Ruta para ingresar ingredientes
     path('ingresar-restricciones/', views.ingresar_restricciones, name='ingresar_restricciones'),  # Nueva ruta para restricciones

@@ -1,6 +1,7 @@
-<<<<<<< HEAD
-from django.shortcuts import render
 from .models import Receta
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 # Create your views here.
 def index (request):
@@ -9,11 +10,6 @@ def index (request):
         'recetas': recetas
     }
     return render(request, 'index.html', {'recetas': recetas})
-=======
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-# Create your views here.
 
 def user_login(request):
     if request.method == 'POST':
@@ -35,4 +31,3 @@ def ingresar_ingredientes(request):
 
 def ingresar_restricciones(request):
     return render(request, 'restricciones.html')  # Redirige a una plantilla de restricciones
->>>>>>> login
