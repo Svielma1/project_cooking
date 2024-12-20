@@ -6,6 +6,16 @@
     <title>Daily cooking</title>
 </head>
 <body>
-    <p>hola</p>
+    <h1>Lista de recetas</h1>
+    {% for receta in recetas %}
+        <h2>{{ receta.nombre }}</h2>
+        <p>{{ receta.descripcion }}</p>
+        <h2>ingredientes: </h2>
+        <ul>
+            {% for item in receta.receta_ingredientes.all %}
+            <li>{{ item.cantidad }} de {{ item.ingrediente.nombre }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 </body>
 </html>
