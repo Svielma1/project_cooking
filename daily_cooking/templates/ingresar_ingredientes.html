@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Ingredientes</title>
+    <script>
+        function agregarIngrediente() {
+            var nuevoCampo = document.createElement('div');
+            nuevoCampo.innerHTML = `
+                <label for="nombre">Ingrediente:</label>
+                <input type="text" name="nombre" required><br><br>
+
+                <label for="cantidad">Cantidad:</label>
+                <input type="text" name="cantidad" required><br><br>
+            `;
+            document.getElementById("ingredientes").appendChild(nuevoCampo);
+        }
+    </script>
+</head>
+<body>
+    <h1>Ingresar Ingredientes</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div id="ingredientes">
+            <!-- Los campos de ingredientes serán añadidos aquí -->
+            <div>
+                <label for="nombre">Ingrediente:</label>
+                <input type="text" name="nombre" required><br><br>
+
+                <label for="cantidad">Cantidad:</label>
+                <input type="text" name="cantidad" required><br><br>
+            </div>
+        </div>
+        <button type="button" onclick="agregarIngrediente()">Agregar otro ingrediente</button><br><br>
+        <button type="submit">Guardar Ingredientes</button>
+    </form>
+</body>
+</html>

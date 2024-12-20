@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily cooking</title>
+    <title>Daily Cooking</title>
 </head>
 <body>
-    <p>hola</p>
+    <h1>Daily Cooking</h1>
+    <p>Comidas sencillas, momentos especiales.</p>
+
+    <!-- Botón de Iniciar sesión -->
+    <button onclick="window.location.href='{% url 'login' %}'">Iniciar sesión</button>
+
+    <!-- Botón de Registrarse -->
+    <button onclick="window.location.href='{% url 'registro' %}'">Registrarse</button>
 </body>
 </html>
+
