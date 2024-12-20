@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Cooking</title>
+</head>
+<body>
+    <h1>Añade una nueva receta</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Detalles de la receta</h2>
+        {{ receta_form.as_p }}
+
+        <h2>Ingredientes</h2>
+        <div id="formset">
+            {{ formset.management_form }}
+            <div id="formset-container">
+                {% for form in formset %}
+                    <div class="formset-row">
+                        {{ form.as_p }}
+                        <button class="delete-row">Eliminar</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="button" id="add-row">Agregar Ingrediente</button>
+        <button type="submit">Guardar receta</button>
+    </form>
+
+    <a href="{% url 'inicio' %}">Volver a la lista de recetas</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const formsetContainer = document.getElementById('formset-container');
+            const addRowButton = document.getElementById('add-row');
+            const totalForms = document.querySelector('#id_receta_ingredientes-TOTAL_FORMS');
+        
+            addRowButton.addEventListener('click', function () {
+                const currentFormCount = parseInt(totalForms.value);
+                const newForm = formsetContainer.children[0].cloneNode(true);
+                
+                // Actualizar los nombres y IDs de los nuevos campos
+                newForm.querySelectorAll('input, select').forEach(function (field) {
+                    const name = field.name.replace(`-${currentFormCount - 1}-`, `-${currentFormCount}-`);
+                    const id = `id_${name}`;
+                    field.name = name;
+                    field.id = id;
+                    field.value = ''; // Limpiar el valor del campo
+                });
+        
+                formsetContainer.appendChild(newForm);
+                totalForms.value = currentFormCount + 1;
+            });
+        
+            // Eliminar una fila de formulario
+            formsetContainer.addEventListener('click', function (e) {
+                if (e.target.classList.contains('delete-row')) {
+                    e.target.closest('.formset-row').remove();
+                    totalForms.value = formsetContainer.children.length;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
