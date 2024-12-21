@@ -12,6 +12,7 @@ body {
     min-height: 100vh;
     text-align: center;
     color: #333;
+    padding-top: 70px; /* Añade espacio superior para evitar superposición con el header */
 }
 
 h1 {
@@ -55,5 +56,46 @@ button {
 }
 
 button:hover {
+    background-color: #86d63b;
+}
+
+header {
+    position: fixed; /* Posiciona el header en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar el header */
+    z-index: 1000; /* Asegura que el header quede por encima del contenido */
+}
+
+header h2 {
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    color: #333;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.banner-buttons button {
     background-color: #45a049;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.banner-buttons button:hover {
+    background-color: #86d63b;
 }

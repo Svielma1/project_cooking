@@ -1,11 +1,12 @@
 from django import forms
 from .models import Ingrediente, Receta, RecetaIngrediente
 
-class IngredienteForm(forms.ModelForm):
-    class Meta:
-        model = Ingrediente
-        fields = ['nombre']
-
+class IngredienteForm(forms.Form):
+    nombre = forms.CharField(
+        max_length=100,
+        label="Nombre del Ingrediente",
+        widget=forms.TextInput(attrs={'placeholder': 'Ejemplo: Tomate'})
+    )
 
 class RecetaForm(forms.ModelForm):
     class Meta:
@@ -27,3 +28,10 @@ class RecetaIngredienteForm(forms.ModelForm):
 RecetaIngredienteFormSet = forms.inlineformset_factory(
     Receta, RecetaIngrediente, form=RecetaIngredienteForm, extra=1, can_delete=True
 )
+
+class RestriccionesForm(forms.Form):
+    restriccion = forms.CharField(
+        max_length=100,
+        label="Restricción alimentaria",
+        widget=forms.TextInput(attrs={'placeholder': 'Ejemplo: Sin gluten'})
+    )

@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', views.index, name='index'),    
@@ -25,5 +26,6 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),            # Ruta para la vista "inicio"
     path('ingresar-ingredientes/', views.ingresar_ingredientes, name='ingresar_ingredientes'),  # Ruta para ingresar ingredientes
     path('ingresar-restricciones/', views.ingresar_restricciones, name='ingresar_restricciones'),  # Nueva ruta para restricciones
-    path('agregar-receta/', views.agregar_receta, name='agregar_receta')
+    path('agregar-receta/', views.agregar_receta, name='agregar_receta'),
+    path('logout/', views.logout_view, name='logout')
 ]

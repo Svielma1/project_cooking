@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,12 +8,17 @@
 </head>
 <body>
     <h1>Ingresar Restricciones</h1>
-    <!-- Aquí podrías agregar un formulario o contenido para ingresar restricciones -->
-    <form>
-        <!-- Ejemplo de un campo de texto para ingresar restricciones -->
-        <label for="restricciones">Restricciones alimenticias:</label>
-        <input type="text" id="restricciones" name="restricciones">
-        <button type="submit">Guardar Restricciones</button>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Restricción</button>
     </form>
+
+    <h2>Restricciones Actuales</h2>
+    <ul>
+        {% for restriccion in restricciones %}
+            <li>{{ restriccion }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
