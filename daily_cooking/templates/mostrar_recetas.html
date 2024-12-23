@@ -13,7 +13,7 @@
         <h2>DC</h2>
         <div class="banner-buttons">
             {% if user.is_authenticated %}
-                <button onclick="window.location.href='{% url 'index' %}'">Volver</button>
+                <button onclick="window.location.href='{% url 'ingresar_ingredientes' %}'">Volver</button>
             {% endif %}
         </div>
     </header>
@@ -23,11 +23,15 @@
         <ul>
             {% for item in recetas_ingredientes %}
                 <li>
-                    <strong>{{ item.receta.nombre }}</strong></br>
+                    <h1 class = titulo>{{ item.receta.nombre }}</h1></br>
                     {{ item.receta.descripcion }}</br>
-                    Método:</br>
+                    <div>
+                        <h2>Método:</h2>
+                    </div>
                     {{ item.receta.metodo }}</br>
-                    Ingredientes:</br>
+                    <div>
+                        <h2>Ingredientes:</h2>
+                    </div>
                     <ul>
                         {% for ingrediente in item.ingredientes %}
                             <li>{{ ingrediente.cantidad }} de {{ ingrediente.nombre }}</li>

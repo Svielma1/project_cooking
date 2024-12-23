@@ -17,12 +17,20 @@ h1 {
     color: #333;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     font-size: 60px;
 }
 
+h2{
+    font-family: 'Dancing Script', cursive;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    font-size: 30px;
+    margin: 10px;
+}
+
 ul {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -39,17 +47,16 @@ ul > li {
     color: #333;
 }
 
-ul > li strong {
+.titulo{
     font-family: 'Dancing Script', cursive;
     font-size: 40px;
-    margin-bottom: 20px;
+    
     color: #4caf50;
 }
 
 ul > li ul {
     margin-top: 10px;
-    padding-left: 20px;
-    list-style-type: disc;
+    list-style-type: none;
 }
 
 ul > li ul li {
