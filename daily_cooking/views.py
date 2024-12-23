@@ -11,6 +11,7 @@ from .models import IngredientesUsuario
 from .forms import RestriccionesForm
 from .models import RestriccionesUsuario
 from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse
 # Create your views here.
 def index(request):
     # Verificar si el usuario pertenece al grupo "ADMIN"
@@ -62,12 +63,19 @@ def ingresar_ingredientes(request):
     ingredientes_usuario, created = IngredientesUsuario.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
+        # Detectar si es una solicitud AJAX para eliminar
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and 'eliminar' in request.POST:
+            ingrediente_a_eliminar = request.POST.get('eliminar')
+            if ingrediente_a_eliminar in ingredientes_usuario.ingredientes:
+                ingredientes_usuario.ingredientes.remove(ingrediente_a_eliminar)
+                ingredientes_usuario.save()
+                return JsonResponse({'success': True, 'ingrediente': ingrediente_a_eliminar})
+            return JsonResponse({'success': False, 'error': 'Ingrediente no encontrado'})
+
+        # Manejo de adición de ingredientes
         form = IngredienteForm(request.POST)
         if form.is_valid():
-            # Obtener el nuevo ingrediente del formulario
             nuevo_ingrediente = form.cleaned_data['nombre']
-
-            # Agregar el ingrediente al arreglo si no excede el límite de 5
             if len(ingredientes_usuario.ingredientes) < 5:
                 ingredientes_usuario.ingredientes.append(nuevo_ingrediente)
                 ingredientes_usuario.save()

@@ -3,18 +3,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/ingredientes.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
     <title>Ingresar Ingredientes</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Eliminar ingrediente sin recargar la página
+            document.querySelectorAll('.delete-button').forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    const ingrediente = this.dataset.ingrediente;
+
+                    // Realizar la solicitud AJAX
+                    fetch("{% url 'ingresar_ingredientes' %}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        },
+                        body: `eliminar=${ingrediente}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Eliminar el elemento de la lista
+                            this.closest('li').remove();
+                        } else {
+                            alert("Error al eliminar el ingrediente.");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
         <h2>DC</h2>
         <div class="banner-buttons">
             {% if user.is_authenticated %}
-            <!-- Botón para volver al inicio -->
-            <button onclick="window.location.href='{% url 'index' %}'">Volver</button>
+                <button onclick="window.location.href='{% url 'index' %}'">Volver</button>
             {% endif %}
         </div>
     </header>
@@ -26,9 +56,12 @@
     </form>
 
     <h2>Ingredientes Ingresados:</h2>
-    <ul>
+    <ul id="ingredientes-list">
         {% for ingrediente in ingredientes %}
-            <li>{{ ingrediente }} <button id="{{ ingrediente }}">Eliminar</button></li>
+            <li>
+                {{ ingrediente }}
+                <button class="delete-button" data-ingrediente="{{ ingrediente }}">Eliminar</button>
+            </li>
         {% endfor %}
     </ul>
 
@@ -36,7 +69,6 @@
         <p style="color: red;">Has alcanzado el límite de 5 ingredientes.</p>
     {% endif %}
 
-    <button type="button" onclick="window.location.href='{% url 'buscar_recetas' %}'">Buscar recetas</button>
-
+    <button type="button" onclick="window.location.href='{% url 'mostrar_recetas' %}'">Buscar recetas</button>
 </body>
 </html>
