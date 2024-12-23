@@ -1,21 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/recetas.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetas</title>
 </head>
 <body>
+    <header>
+        <h2>DC</h2>
+        <div class="banner-buttons">
+            {% if user.is_authenticated %}
+                <button onclick="window.location.href='{% url 'index' %}'">Volver</button>
+            {% endif %}
+        </div>
+    </header>
     <h1>Recetas que coinciden con tus ingredientes</h1>
     
     {% if recetas %}
         <ul>
             {% for item in recetas_ingredientes %}
                 <li>
-                    <strong>{{ item.receta.nombre }}</strong><br>
-                    Descripción: {{ item.receta.descripcion }}<br>
-                    Método: {{ item.receta.metodo }}<br>
-                    Ingredientes:
+                    <strong>{{ item.receta.nombre }}</strong></br>
+                    {{ item.receta.descripcion }}</br>
+                    Método:</br>
+                    {{ item.receta.metodo }}</br>
+                    Ingredientes:</br>
                     <ul>
                         {% for ingrediente in item.ingredientes %}
                             <li>{{ ingrediente.cantidad }} de {{ ingrediente.nombre }}</li>

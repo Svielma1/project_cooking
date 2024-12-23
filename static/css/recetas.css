@@ -1,0 +1,115 @@
+body {
+    margin-top: 50px;
+    font-family: 'Dancing Script', cursive, Arial, sans-serif;
+    background-image: url('/static/assets/receta.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 60px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 800px;
+}
+
+ul > li {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+ul > li strong {
+    font-family: 'Dancing Script', cursive;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #4caf50;
+}
+
+ul > li ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+ul > li ul li {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+p {
+    font-family: Arial, sans-serif;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 30px;
+    color: #666;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+}
+
+header {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000; 
+}
+
+header h2 {
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    color: #333;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.banner-buttons button {
+    background-color: #45a049;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin:10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.banner-buttons button:hover {
+    background-color: #86d63b;
+}

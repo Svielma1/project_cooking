@@ -7,12 +7,11 @@ body {
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
-    
     align-items: center;
     min-height: 100vh;
     text-align: center;
     color: #333;
-    padding-top: 70px; /* Añade espacio superior para evitar superposición con el header */
+    padding-top: 70px; 
 }
 
 h1 {
@@ -60,17 +59,17 @@ button:hover {
 }
 
 header {
-    position: fixed; /* Posiciona el header en la parte superior */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+    background-color: rgba(255, 255, 255, 0.9);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar el header */
-    z-index: 1000; /* Asegura que el header quede por encima del contenido */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    z-index: 1000;
 }
 
 header h2 {

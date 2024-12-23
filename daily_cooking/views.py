@@ -55,8 +55,6 @@ def user_login(request):
             messages.error(request, 'Usuario o contraseña incorrectos')
     return render(request, 'login.html')
 
-def inicio(request):
-    return render(request, 'inicio.html')  # Renderiza la plantilla "inicio.html"
 
 def ingresar_ingredientes(request):
     # Obtén o crea el registro de ingredientes del usuario

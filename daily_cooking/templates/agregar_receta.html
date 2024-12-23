@@ -1,11 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static 'css/agregar_recetas.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Cooking</title>
 </head>
 <body>
+    <header>
+        <h2>DC</h2>
+        <div class="banner-buttons">
+            {% if user.is_authenticated %}
+                <button onclick="window.location.href='{% url 'index' %}'">Volver</button>
+            {% endif %}
+        </div>
+    </header>
     <h1>Añade una nueva receta</h1>
 
     <!-- Mostrar el botón solo si el usuario es ADMIN -->
@@ -34,8 +45,6 @@
     {% else %}
         <p>No tienes permisos para añadir recetas.</p>
     {% endif %}
-
-    <a href="{% url 'inicio' %}">Volver a la lista de recetas</a>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
