@@ -12,6 +12,8 @@ from .forms import RestriccionesForm
 from .models import RestriccionesUsuario
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
+from itertools import chain
+
 # Create your views here.
 def index(request):
     # Verificar si el usuario pertenece al grupo "ADMIN"
@@ -93,6 +95,14 @@ def ingresar_restricciones(request):
     restricciones_usuario, created = RestriccionesUsuario.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and 'eliminar' in request.POST:
+            ingrediente_a_eliminar = request.POST.get('eliminar')
+            if ingrediente_a_eliminar in restricciones_usuario.restricciones:
+                restricciones_usuario.restricciones.remove(ingrediente_a_eliminar)
+                restricciones_usuario.save()
+                return JsonResponse({'success': True, 'ingrediente': ingrediente_a_eliminar})
+            return JsonResponse({'success': False, 'error': 'Ingrediente no encontrado'})
+        
         form = RestriccionesForm(request.POST)
         if form.is_valid():
             # Obtener la nueva restricción del formulario
@@ -155,10 +165,20 @@ def buscar_recetas(request):
         usuario = IngredientesUsuario.objects.get(user=user)
         ingredientes_usuario = usuario.ingredientes
 
+        restricciones_queryset = RestriccionesUsuario.objects.filter(user=user)
+        restricciones = list(
+            chain.from_iterable(r.restricciones for r in restricciones_queryset)
+        )
+
         ingredientes = Ingrediente.objects.filter(nombre__in=ingredientes_usuario)
         recetas = Receta.objects.filter(
             receta_ingredientes__ingrediente__in=ingredientes
         ).distinct()
+
+        if restricciones:
+            recetas = recetas.exclude(
+                receta_ingredientes__ingrediente__nombre__in=restricciones
+            )
 
         # Crear una lista de diccionarios con receta, ingredientes y cantidades
         recetas_ingredientes = []

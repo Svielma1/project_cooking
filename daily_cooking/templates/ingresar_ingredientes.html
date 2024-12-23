@@ -56,14 +56,18 @@
     </form>
 
     <h2>Ingredientes Ingresados:</h2>
-    <ul id="ingredientes-list">
-        {% for ingrediente in ingredientes %}
-            <li>
-                {{ ingrediente }}
-                <button class="delete-button" data-ingrediente="{{ ingrediente }}">Eliminar</button>
-            </li>
-        {% endfor %}
-    </ul>
+    {% if ingredientes %}
+        <ul id="ingredientes-list">
+            {% for ingrediente in ingredientes %}
+                <li>
+                    {{ ingrediente }}
+                    <button class="delete-button" data-ingrediente="{{ ingrediente }}">Eliminar</button>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <h3>- No hay ingredientes ingresados*</h3>
+    {% endif %}
 
     {% if ingredientes|length >= 5 %}
         <p style="color: red;">Has alcanzado el límite de 5 ingredientes.</p>
