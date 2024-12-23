@@ -67,5 +67,5 @@ class RestriccionesForm(forms.Form):
     restriccion = forms.CharField(
         max_length=100,
         label="Restricción alimentaria",
-        widget=forms.TextInput(attrs={'placeholder': 'Ejemplo: Sin gluten'})
+        widget=forms.TextInput(attrs={'placeholder': 'Ejemplo: gluten'})
     )

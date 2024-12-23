@@ -7,6 +7,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingresar Restricciones</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Eliminar restriccion sin recargar la página
+            document.querySelectorAll('.delete-button').forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    const restriccion = this.dataset.restriccion;
+
+                    // Realizar la solicitud AJAX
+                    fetch("{% url 'ingresar_restricciones' %}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        },
+                        body: `eliminar=${restriccion}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Eliminar el elemento de la lista
+                            this.closest('li').remove();
+                        } else {
+                            alert("Error al eliminar la restriccion.");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -26,10 +56,18 @@
     </form>
 
     <h2>Restricciones Actuales</h2>
-    <ul>
-        {% for restriccion in restricciones %}
-            <li>{{ restriccion }}</li>
-        {% endfor %}
-    </ul>
+    {% if restricciones %}
+        <ul>
+            {% for restriccion in restricciones %}
+                    <li>
+                        {{ restriccion }}
+                        <button class="delete-button" data-restriccion="{{ restriccion }}">Eliminar</button>
+                    </li>               
+            {% endfor %}
+        </ul>
+    {% else %}
+    <h3>No hay restricciones*</h3> 
+    {% endif %}
+
 </body>
 </html>
