@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas</title>
+</head>
+<body>
+    <h1>Recetas que coinciden con tus ingredientes</h1>
+    
+    {% if recetas %}
+        <ul>
+            {% for item in recetas_ingredientes %}
+                <li>
+                    <strong>{{ item.receta.nombre }}</strong><br>
+                    Descripción: {{ item.receta.descripcion }}<br>
+                    Método: {{ item.receta.metodo }}<br>
+                    Ingredientes:
+                    <ul>
+                        {% for ingrediente in item.ingredientes %}
+                            <li>{{ ingrediente.cantidad }} de {{ ingrediente.nombre }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron recetas que coincidan con tus ingredientes.</p>
+    {% endif %}
+
+</body>
+</html>

@@ -28,12 +28,15 @@
     <h2>Ingredientes Ingresados:</h2>
     <ul>
         {% for ingrediente in ingredientes %}
-            <li>{{ ingrediente }}</li>
+            <li>{{ ingrediente }} <button id="{{ ingrediente }}">Eliminar</button></li>
         {% endfor %}
     </ul>
 
     {% if ingredientes|length >= 5 %}
         <p style="color: red;">Has alcanzado el límite de 5 ingredientes.</p>
     {% endif %}
+
+    <button type="button" onclick="window.location.href='{% url 'buscar_recetas' %}'">Buscar recetas</button>
+
 </body>
 </html>

@@ -28,5 +28,6 @@ urlpatterns = [
     path('ingresar-ingredientes/', views.ingresar_ingredientes, name='ingresar_ingredientes'),  # Ruta para ingresar ingredientes
     path('ingresar-restricciones/', views.ingresar_restricciones, name='ingresar_restricciones'),  # Nueva ruta para restricciones
     path('agregar-receta/', views.agregar_receta, name='agregar_receta'),
-    path('logout/', views.logout_view, name='logout')
+    path('logout/', views.logout_view, name='logout'),
+    path('mostrar-recetas/', views.buscar_recetas, name='mostrar_recetas'),
 ]

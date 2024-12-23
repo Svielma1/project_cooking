@@ -22,7 +22,7 @@
                     {% for form in formset %}
                         <div class="formset-row">
                             {{ form.as_p }}
-                            <button class="delete-row">Eliminar</button>
+                            <button type="button" class="delete-row">Eliminar</button>
                         </div>
                     {% endfor %}
                 </div>
@@ -44,29 +44,43 @@
             const totalForms = document.querySelector('#id_receta_ingredientes-TOTAL_FORMS');
         
             addRowButton.addEventListener('click', function () {
-                const currentFormCount = parseInt(totalForms.value);
-                const newForm = formsetContainer.children[0].cloneNode(true);
-                
-                // Actualizar los nombres y IDs de los nuevos campos
+                const currentFormCount = parseInt(totalForms.value); // Número actual de formularios
+                const newForm = formsetContainer.children[0].cloneNode(true); // Clonar el primer formulario
+        
+                // Actualizar los atributos name e id de los campos en el formulario clonado
                 newForm.querySelectorAll('input, select').forEach(function (field) {
-                    const name = field.name.replace(`-${currentFormCount - 1}-`, `-${currentFormCount}-`);
-                    const id = `id_${name}`;
+                    // Reemplazar el índice actual por el nuevo índice
+                    const name = field.name.replace(/-\d+-/, `-${currentFormCount}-`);
+                    const id = field.id.replace(/-\d+-/, `-${currentFormCount}-`);
                     field.name = name;
                     field.id = id;
                     field.value = ''; // Limpiar el valor del campo
                 });
         
-                formsetContainer.appendChild(newForm);
-                totalForms.value = currentFormCount + 1;
-            });
+                // Actualizar los for de los labels si los hay
+                newForm.querySelectorAll('label').forEach(function (label) {
+                    if (label.htmlFor) {
+                        label.htmlFor = label.htmlFor.replace(/-\d+-/, `-${currentFormCount}-`);
+                    }
+                });
         
-            // Eliminar una fila de formulario
+                // Agregar el formulario clonado al contenedor
+                formsetContainer.appendChild(newForm);
+        
+                // Incrementar el número total de formularios en el management_form
+                totalForms.value = currentFormCount + 1;
+
+                
+            });
+
             formsetContainer.addEventListener('click', function (e) {
                 if (e.target.classList.contains('delete-row')) {
+                    e.preventDefault(); // Prevenir cualquier acción predeterminada (por si acaso)
                     e.target.closest('.formset-row').remove();
-                    totalForms.value = formsetContainer.children.length;
+                    totalForms.value = formsetContainer.children.length; // Actualizar el contador de formularios
                 }
             });
+
         });
     </script>
 </body>

@@ -110,10 +110,8 @@ def ingresar_restricciones(request):
 
 @login_required
 def agregar_receta(request):
-    # Verificar si el usuario pertenece al grupo "ADMIN"
     es_admin = request.user.groups.filter(name="ADMIN").exists()
     
-    # Si el usuario no pertenece al grupo "ADMIN", denegar acceso a esta vista
     if not es_admin:
         raise PermissionDenied("No tienes permiso para acceder a esta página.")
 
@@ -123,11 +121,13 @@ def agregar_receta(request):
         if receta_form.is_valid() and formset.is_valid():
             receta = receta_form.save()
             for form in formset:
-                nombre_ingrediente = form.cleaned_data['ingrediente_nombre']
-                ingrediente, created = Ingrediente.objects.get_or_create(nombre=nombre_ingrediente)
-                cantidad = form.cleaned_data['cantidad']
-                RecetaIngrediente.objects.create(receta=receta, ingrediente=ingrediente, cantidad=cantidad)
-            return redirect('index')  # Redirige a la página principal (index)
+                if form.is_valid():
+                    nombre_ingrediente = form.cleaned_data['ingrediente_nombre']
+                    cantidad = form.cleaned_data['cantidad']
+                    if nombre_ingrediente and cantidad:   
+                        ingrediente, created = Ingrediente.objects.get_or_create(nombre=nombre_ingrediente)               
+                        RecetaIngrediente.objects.create(receta=receta, ingrediente=ingrediente, cantidad=cantidad)
+            return redirect('index')
     else:
         receta_form = RecetaForm()
         formset = RecetaIngredienteFormSet()
@@ -135,10 +135,46 @@ def agregar_receta(request):
     context = {
         'receta_form': receta_form,
         'formset': formset,
-        'es_admin': es_admin,  # Indicador para mostrar el botón en el template
+        'es_admin': es_admin,  
     }
     return render(request, 'agregar_receta.html', context)
 
 def logout_view(request):
-    logout(request)  # Cierra la sesión del usuario
+    logout(request)
     return redirect('index')
+
+def buscar_recetas(request):
+    user = request.user
+    try:
+        usuario = IngredientesUsuario.objects.get(user=user)
+        ingredientes_usuario = usuario.ingredientes
+
+        ingredientes = Ingrediente.objects.filter(nombre__in=ingredientes_usuario)
+        recetas = Receta.objects.filter(
+            receta_ingredientes__ingrediente__in=ingredientes
+        ).distinct()
+
+        # Crear una lista de diccionarios con receta, ingredientes y cantidades
+        recetas_ingredientes = []
+        for receta in recetas:
+            ingredientes_receta = receta.receta_ingredientes.all()
+            ingredientes_lista = [
+                {'nombre': ingrediente.ingrediente.nombre, 'cantidad': ingrediente.cantidad}
+                for ingrediente in ingredientes_receta
+            ]
+            recetas_ingredientes.append({
+                'receta': receta,
+                'ingredientes': ingredientes_lista
+            })
+
+        return render(request, 'mostrar_recetas.html', {
+            'recetas': recetas,
+            'recetas_ingredientes': recetas_ingredientes,
+            'ingredientes_usuario': ingredientes_usuario
+        })
+
+    except IngredientesUsuario.DoesNotExist:
+        return render(request, 'mostrar_recetas.html', {
+            'recetas': [],
+            'mensaje': 'No tienes ingredientes guardados.'
+        })
