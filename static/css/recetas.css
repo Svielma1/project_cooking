@@ -31,7 +31,7 @@ ul {
 
 ul > li {
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 10px;
+    padding: 10px 30px;
     margin-bottom: 15px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -81,7 +81,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 30px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000; 
 }
@@ -104,7 +104,7 @@ header h2 {
     color: white;
     border: none;
     padding: 8px 12px;
-    margin:10px;
+    margin:10px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;

@@ -67,6 +67,18 @@ form button {
     font-family: Arial, sans-serif;
 }
 
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 10px 20px;
+    transition: background-color 0.3s;
+}
+
 form button:hover {
     background-color: #45a049;
 }
