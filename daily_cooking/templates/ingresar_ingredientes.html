@@ -3,10 +3,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static 'css/ingredientes.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Ingresar Ingredientes</title>
 </head>
 <body>
+    <header>
+        <h2>DC</h2>
+        <div class="banner-buttons">
+            {% if user.is_authenticated %}
+            <!-- Botón para volver al inicio -->
+            <button onclick="window.location.href='{% url 'index' %}'">Volver</button>
+            {% endif %}
+        </div>
+    </header>
     <h1>Ingresar Ingredientes</h1>
     <form method="post">
         {% csrf_token %}

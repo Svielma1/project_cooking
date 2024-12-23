@@ -3,10 +3,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/restricciones.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingresar Restricciones</title>
 </head>
 <body>
+    <header>
+        <h2>DC</h2>
+        <div class="banner-buttons">
+            {% if user.is_authenticated %}
+            <!-- Botón para volver al inicio -->
+            <button onclick="window.location.href='{% url 'index' %}'">Volver</button>
+            {% endif %}
+        </div>
+    </header>
     <h1>Ingresar Restricciones</h1>
     <form method="post">
         {% csrf_token %}
