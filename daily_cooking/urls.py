@@ -20,7 +20,8 @@ from . import views
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('', views.index, name='index'),    
+    path('', views.index, name='index'),   
+    path('registro/', views.registro, name='registro'), 
     path('login/', views.user_login, name='login'),            # Ruta de login
     path('inicio/', views.inicio, name='inicio'), 
     path('registro/', views.registro, name='registro'),            # Ruta para la vista "inicio"

@@ -8,27 +8,32 @@
 <body>
     <h1>Añade una nueva receta</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        <h2>Detalles de la receta</h2>
-        {{ receta_form.as_p }}
+    <!-- Mostrar el botón solo si el usuario es ADMIN -->
+    {% if es_admin %}
+        <form method="POST">
+            {% csrf_token %}
+            <h2>Detalles de la receta</h2>
+            {{ receta_form.as_p }}
 
-        <h2>Ingredientes</h2>
-        <div id="formset">
-            {{ formset.management_form }}
-            <div id="formset-container">
-                {% for form in formset %}
-                    <div class="formset-row">
-                        {{ form.as_p }}
-                        <button class="delete-row">Eliminar</button>
-                    </div>
-                {% endfor %}
+            <h2>Ingredientes</h2>
+            <div id="formset">
+                {{ formset.management_form }}
+                <div id="formset-container">
+                    {% for form in formset %}
+                        <div class="formset-row">
+                            {{ form.as_p }}
+                            <button class="delete-row">Eliminar</button>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
 
-        <button type="button" id="add-row">Agregar Ingrediente</button>
-        <button type="submit">Guardar receta</button>
-    </form>
+            <button type="button" id="add-row">Agregar Ingrediente</button>
+            <button type="submit">Guardar receta</button>
+        </form>
+    {% else %}
+        <p>No tienes permisos para añadir recetas.</p>
+    {% endif %}
 
     <a href="{% url 'inicio' %}">Volver a la lista de recetas</a>
 

@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
@@ -9,31 +10,36 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <title>Daily Cooking</title>
 </head>
+
 <body>
     <header>
         <h2>DC</h2>
         <div class="banner-buttons">
             {% if user.is_authenticated %}
-                <!-- Botón para cerrar sesión -->
-                <button onclick="window.location.href='{% url 'logout' %}'">Cerrar sesión</button>
+            <!-- Botón para cerrar sesión -->
+            <button onclick="window.location.href='{% url 'logout' %}'">Cerrar sesión</button>
             {% else %}
-                <!-- Botones para login y registrarse -->
-                <button onclick="window.location.href='{% url 'login' %}'">Login</button>
-                <button onclick="window.location.href='{% url 'registro' %}'">Registrarse</button>
+            <!-- Botones para login y registrarse -->
+            <button onclick="window.location.href='{% url 'login' %}'">Login</button>
+            <button onclick="window.location.href='{% url 'registro' %}'">Registrarse</button>
             {% endif %}
         </div>
     </header>
     <h1>Daily Cooking</h1>
     <h3>Organiza tus comidas para la semana...</h3>
-    <p>Daily Cooking te proporcionará recetas para la semana con los ingredientes que tengas en tu cocina. Fácil y sin tener que pensar en tu siguiente comida.
+    <p>Daily Cooking te proporcionará recetas para la semana con los ingredientes que tengas en tu cocina. Fácil y sin
+        tener que pensar en tu siguiente comida.
         Recuerda ingresar tus restricciones alimentarias para una mejor personalización.
     </p>
     {% if user.is_authenticated %}
-        <button onclick="window.location.href='{% url 'ingresar_ingredientes' %}'">Ingresar Ingredientes</button>
-        <button onclick="window.location.href='{% url 'ingresar_restricciones' %}'">Ingresar restricciones</button>
-        <button onclick="window.location.href='{% url 'agregar_receta' %}'">Añadir receta</button>
+    <button onclick="window.location.href='{% url 'ingresar_ingredientes' %}'">Ingresar Ingredientes</button>
+    <button onclick="window.location.href='{% url 'ingresar_restricciones' %}'">Ingresar restricciones</button>
+    {% if es_admin %}
+    <button onclick="window.location.href='{% url 'agregar_receta' %}'">Añadir receta</button>
+    {% endif %}
     {% else %}
-        <p>Inicia sesión para acceder a más funcionalidades.</p>
+    <p>Inicia sesión para acceder a más funcionalidades.</p>
     {% endif %}
 </body>
+
 </html>
